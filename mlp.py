@@ -4,7 +4,7 @@ from matplotlib import pyplot as plt
 import math
 from sklearn.utils import shuffle
 
-ds1=pd.read_csv("C:\\Users\\Ankush\\Desktop\\ML Assignment\\Assignment 1\\input.csv")
+ds1=pd.read_csv("C:\\Users\\Ankush\\Desktop\\ML Assignment\\Assignment 1\\input.csv") #path in local device
 ds=shuffle(ds1)
 X=ds.iloc[:,0:3].values
 Y=ds.iloc[:,3:5].values
@@ -16,8 +16,8 @@ for i in range(len(X)):
     else:
         plt.scatter(X[i][1],X[i][2],color='g')
 
-
-plt.show()
+#if you uncomment the below line you will get the figure same as input_plot.jpg in main repository
+#plt.show()
 
 lr=0.1 #learning rate
 N=len(ds) #no. of data points
@@ -43,14 +43,14 @@ def sigmoid(x):
 epoch=1000
 for e in range(epoch):
     er=0
-    for n in range(N):
+    for n in range(N-10): #10 data points are left for testing
         en=0
         
         #v1[n][0]=1
         for j in range(1,H+1):
             u1[n][j]=0
             for i in range(x):
-                u1[n][j]+=X[n][i]*w1[j][i]#
+                u1[n][j]+=X[n][i]*w1[j][i]
                 v1[n][j]=sigmoid(u1[n][j])
 
         v1[n][0]=1
@@ -78,11 +78,13 @@ for e in range(epoch):
     #print(er/N)
 
 err=0
+
+# the testing is done on whole dataset but you can use the only 10 points left for this purpose
 for n in range(N):
     for j in range(1,H+1):
         u1[n][j]=0
         for i in range(x):
-            u1[n][j]+=X[n][i]*w1[j][i]#
+            u1[n][j]+=X[n][i]*w1[j][i]
             v1[n][j]=sigmoid(u1[n][j])
 
 
